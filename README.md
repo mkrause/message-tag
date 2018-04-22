@@ -45,21 +45,45 @@ Just using `JSON.stringify` here may lead to very cryptic error messages, whenev
 
 ## Usage
 
-To use the `msg` tag, import or require it:
+First, import or require the `msg` tag:
 
 ```js
     import msg from 'message-tag';
-    const msg = require('message-tag'); // CommonJS version
+    //const msg = require('message-tag'); // CommonJS version
 ```
 
 
-The tag can handle values of arbitrary type:
+Values of any known, built-in type can be formatted:
 
 ```js
     msg`Message: ${undefined}`; // 'Message: `undefined`'
+    msg`Message: ${null}`; // 'Message: `null`'
+    msg`Message: ${42}`; // 'Message: 42'
+    msg`Message: ${[1, 2, 3]}`; // 'Message: `[1,2,3]`'
     msg`Message: ${{ name: 'John' }}`; // 'Message: `{"name":"John"}`'
+    
+    // Dates are formatted as ISO strings:
     msg`Message: ${new Date()}`; // 'Message: 2018-04-22T22:19:39.161Z'
+    
+    // Also works for functions:
+    msg`Message: ${x => x + 1}`; // 'Message: `x => x + 1`'
 ```
+
+
+Instances of custom types will be printed with the name of the type, and with the contents serialized through `toJSON()`. If `toJSON` is not implemented, all enumerable properties of the instance are used instead.
+
+```js
+    class MyType {
+        value = 42;
+        
+        toJSON() {
+            return { value: this.value };
+        }
+    }
+    
+    msg`Custom: ${new MyType()}`; // 'Custom: `{"value":42}`'
+```
+
 
 If you want to disable formatting for a specific input, use `msg.raw`:
 
