@@ -1,6 +1,6 @@
 {
     "name": "message-tag",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "ES6 template literal tag to format message strings on arbitrary inputs",
     "author": "mkrause",
     "license": "MIT",

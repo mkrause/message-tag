@@ -66,4 +66,4 @@ const format = value => {
     return JSON.stringify(value);
 };
 
-module.exports = createTag(format);
+export default createTag(format);
