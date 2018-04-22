@@ -9,5 +9,5 @@
     const user = { name: 'John' };
     
     const message = msg`Found user: ${user}`;
-    // Output: 'Found user: `{ name: "John" }`'
+    // Output: 'Found user: `{"name":"John"}`'
 ```
