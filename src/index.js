@@ -9,6 +9,8 @@ const quote = value => `\`${value}\``;
 
 const hasOwnProperty = (obj, propName) => Object.prototype.hasOwnProperty.call(obj, propName);
 
+const customizedKey = Symbol('msg.customized');
+
 const format = value => {
     if (value === undefined) {
         return quote('undefined');
@@ -18,6 +20,18 @@ const format = value => {
         return quote(JSON.stringify(value));
     } else if (typeof value === 'symbol') {
         return quote(value.toString()); // `Symbol(<symbol-name>)`
+    } else if (typeof value === 'string') {
+        return JSON.stringify(value); // Don't quote, just encode as a string literal
+    } else if (typeof value === 'number') {
+        if (isNaN(value)) {
+            return 'NaN';
+        } else if (value === +Infinity) {
+            return '+Infinity';
+        } else if (value === -Infinity) {
+            return '-Infinity';
+        }
+        
+        return JSON.stringify(value);
     } else if (Array.isArray(value)) {
         // Currently just JSON encodes the entire array. We may want to format this a bit nicer.
         return quote(JSON.stringify(value));
@@ -32,6 +46,15 @@ const format = value => {
         // for display, so encoding it would mess up the formatting.
         return `[${value.constructor.name}] ${value.message}`;
     } else if (typeof value === 'object') {
+        if (customizedKey in value) {
+            const type = value[customizedKey];
+            if (type === 'raw') {
+                return value.value;
+            } else {
+                throw new TypeError(`Unknown customized type \`${JSON.stringify(type)}\``);
+            }
+        }
+        
         const proto = Object.getPrototypeOf(value);
         if (proto === null || proto === Object.prototype) {
             // Currently just JSON encodes the entire object. We may want to format this a bit nicer.
@@ -66,4 +89,8 @@ const format = value => {
     return JSON.stringify(value);
 };
 
-export default createTag(format);
+const msg = createTag(format);
+
+msg.raw = value => ({ [customizedKey]: 'raw', value });
+
+export default msg;

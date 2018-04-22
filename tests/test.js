@@ -24,6 +24,13 @@ describe('Message tag', () => {
     
     it('should format number as number literal', () => {
         expect(msg`Test: ${42}`).to.equal('Test: 42');
+        expect(msg`Test: ${-10}`).to.equal('Test: -10');
+        
+        expect(msg`Test: ${+0}`).to.equal('Test: 0');
+        expect(msg`Test: ${-0}`).to.equal('Test: 0');
+        expect(msg`Test: ${+Infinity}`).to.equal('Test: +Infinity');
+        expect(msg`Test: ${-Infinity}`).to.equal('Test: -Infinity');
+        expect(msg`Test: ${NaN}`).to.equal('Test: NaN');
     });
     
     it('should format boolean as quoted literal', () => {
@@ -90,5 +97,9 @@ describe('Message tag', () => {
         expect(msg`Test: ${new ClassSimple()}`).to.equal('Test: [ClassSimple] `{}`');
         expect(msg`Test: ${new ClassWithProps()}`).to.equal('Test: [ClassWithProps] `{"x":42,"y":null}`');
         expect(msg`Test: ${new CtorWithName()}`).to.equal('Test: [CustomName] `{"x":42}`');
+    });
+    
+    it('should support `msg.raw` for raw interpolation', () => {
+        expect(msg`Test: ${msg.raw('foo')}`).to.equal('Test: foo');
     });
 });
