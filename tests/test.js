@@ -1,7 +1,7 @@
 
-const { expect } = require('chai');
+import { expect } from 'chai';
 
-const msg = require('../src/index.js');
+import msg from '../src/index.js';
 
 
 describe('Message tag', () => {
