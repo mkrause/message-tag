@@ -64,5 +64,5 @@ The tag can handle values of arbitrary type:
 If you want to disable formatting for a specific input, use `msg.raw`:
 
 ```js
-    msg`Will not be formatted: ${"foo"}`; // 'Will not be formatted: foo'
+    msg`Will not be formatted: ${msg.raw('foo')}`; // 'Will not be formatted: foo'
 ```
