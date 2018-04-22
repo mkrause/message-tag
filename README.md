@@ -57,7 +57,7 @@ The tag can handle values of arbitrary type:
 
 ```js
     msg`Message: ${undefined}`; // 'Message: `undefined`'
-    msg`Message: ${{ name: 'John' }}`; // 'Message: {"name":"John"}'
+    msg`Message: ${{ name: 'John' }}`; // 'Message: `{"name":"John"}`'
     msg`Message: ${new Date()}`; // 'Message: 2018-04-22T22:19:39.161Z'
 ```
 
