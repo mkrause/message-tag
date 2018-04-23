@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/v/message-tag.svg)](https://www.npmjs.com/package/message-tag)
 [![Travis](https://img.shields.io/travis/mkrause/message-tag.svg)](https://travis-ci.org/mkrause/message-tag)
 
-[ES6 template literal tag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) to format arbitrary values in a string template. Useful for error messages, logs, etc.
+A [template literal tag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) to format arbitrary values in a string template. Useful for error messages, logs, etc.
 
 ```js
 import msg from 'message-tag';
@@ -33,14 +33,12 @@ If you always know the type of the input, then these can be dealt with by using 
 In addition, sometimes we do not have any knowledge of the type of the input at all. This is common in the case of error handling, where we may want to construct error messages such as:
 
 ```js
-if (input instanceof Foo) {
-    //...
-} else {
+if (!(input instanceof Foo)) {
     throw new TypeError(`Expected instance of Foo, but given '${JSON.stringify(input)}' instead`);
 }
 ```
 
-Just using `JSON.stringify` here may lead to very cryptic error messages, whenever the input does not lend itself to JSON serialization.
+Since we do not know the type of `input`, using `JSON.stringify` is optimistic here. It will produce suboptimal or cryptic results for values like `NaN`, functions, or custom types that don't implement `toJSON()`.
 
 
 ## Usage
@@ -74,11 +72,11 @@ Instances of custom types will be printed with the name of the type, and with th
 
 ```js
 class MyType {
-value = 42;
-
-toJSON() {
-    return { value: this.value };
-}
+    value = 42;
+    
+    toJSON() {
+        return { value: this.value };
+    }
 }
 
 msg`Custom: ${new MyType()}`; // 'Custom: `{"value":42}`'
