@@ -6,15 +6,11 @@
         "message",
         "error",
         "log",
-        "logging",
         "format",
-        "formatting",
-        "tag",
         "template",
-        "es2015-tag",
-        "es6-tag",
-        "es6",
-        "tagged"
+        "tag",
+        "tagged",
+        "es6-tag"
     ],
     "author": "mkrause",
     "license": "MIT",
