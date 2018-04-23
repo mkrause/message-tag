@@ -2,6 +2,7 @@
     "name": "message-tag",
     "version": "0.1.2",
     "description": "ES6 template literal tag to format message strings on arbitrary inputs",
+    "keywords": ["message", "error", "log", "logging", "format", "formatting", "tag", "template", "es2015-tag", "es6-tag", "es6", "tagged"],
     "author": "mkrause",
     "license": "MIT",
     "repository": "https://github.com/mkrause/message-tag",
