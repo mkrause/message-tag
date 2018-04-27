@@ -61,7 +61,7 @@ msg`Message: ${[1, 2, 3]}`; // 'Message: `[1,2,3]`'
 msg`Message: ${{ name: 'John' }}`; // 'Message: `{"name": "John"}`'
 
 // Dates are formatted as ISO strings:
-msg`Message: ${new Date()}`; // 'Message: 2018-04-22T22:19:39.161Z'
+msg`Message: ${new Date()}`; // 'Message: 2018-04-22T22:19:39Z'
 
 // Also works for functions:
 msg`Message: ${x => x + 1}`; // 'Message: `x => x + 1`'
