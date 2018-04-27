@@ -1,4 +1,8 @@
 
+import dateFormat from 'dateformat';
+import prettyFormat from 'pretty-format';
+
+
 const createTag = encode => (stringParts, ...substitutions) =>
     substitutions.reduce(
         (prev, cur, i) => prev + encode(cur) + stringParts[i + 1],
@@ -9,15 +13,31 @@ const quote = value => `\`${value}\``;
 
 const hasOwnProperty = (obj, propName) => Object.prototype.hasOwnProperty.call(obj, propName);
 
-const customizedKey = Symbol('msg.customized');
+const customKey = Symbol('msg.custom');
 
-const format = value => {
+const formatObject = (obj, options) => {
+    return prettyFormat(obj, options)
+        .replace(/^Object /, ''); // Remove 'Object' tag
+};
+
+const format = (value, options = {}) => {
+    if (typeof value === 'object' && value && customKey in value) {
+        if (value.type === 'raw') {
+            return value.value;
+        }
+        
+        if (typeof value.options === 'object' && value.options) {
+            options = value.options;
+            value = value.value;
+        }
+    }
+    
     if (value === undefined) {
         return quote('undefined');
     } else if (value === null) {
         return quote('null');
     } else if (typeof value === 'boolean') {
-        return quote(JSON.stringify(value));
+        return quote(String(value));
     } else if (typeof value === 'symbol') {
         return quote(value.toString()); // `Symbol(<symbol-name>)`
     } else if (typeof value === 'string') {
@@ -31,14 +51,14 @@ const format = value => {
             return '-Infinity';
         }
         
-        return JSON.stringify(value);
+        return String(value);
     } else if (Array.isArray(value)) {
         // Currently just JSON encodes the entire array. We may want to format this a bit nicer.
         return quote(JSON.stringify(value));
     } else if (typeof value === 'function') {
         return quote(value.toString());
     } else if (value instanceof Date) {
-        return value.toISOString();
+        return dateFormat(value, options.dateFormat || 'isoUtcDateTime');
     } else if (value instanceof RegExp) {
         return quote(value.toString());
     } else if (value instanceof Error) {
@@ -46,19 +66,10 @@ const format = value => {
         // for display, so encoding it would mess up the formatting.
         return `[${value.constructor.name}] ${value.message}`;
     } else if (typeof value === 'object') {
-        if (customizedKey in value) {
-            const type = value[customizedKey];
-            if (type === 'raw') {
-                return value.value;
-            } else {
-                throw new TypeError(`Unknown customized type \`${JSON.stringify(type)}\``);
-            }
-        }
-        
         const proto = Object.getPrototypeOf(value);
         if (proto === null || proto === Object.prototype) {
             // Currently just JSON encodes the entire object. We may want to format this a bit nicer.
-            return quote(JSON.stringify(value));
+            return quote(formatObject(value, options.format));
         }
         
         if (hasOwnProperty(proto, 'constructor') && typeof proto.constructor === 'function') {
@@ -78,7 +89,7 @@ const format = value => {
                 stringRep = JSON.stringify(value.toString()); // Encode as string literal
             } else {
                 // Fallback: take all enumerable properties and format as object
-                stringRep = quote(JSON.stringify({ ...value }));
+                stringRep = quote(formatObject({ ...value }, options.format));
             }
             
             return `[${tag}] ${stringRep}`;
@@ -89,8 +100,18 @@ const format = value => {
     return JSON.stringify(value);
 };
 
-const msg = createTag(format);
+export const msgTag = options => createTag(value => format(value, options));
 
-msg.raw = value => ({ [customizedKey]: 'raw', value });
+const msg = msgTag({
+    format: {
+        maxDepth: 4,
+        min: true,
+    },
+    dateFormat: 'isoUtcDateTime',
+});
+
+export const raw = msg.raw = value => ({ [customKey]: true, type: 'raw', value });
+
+export const custom = msg.custom = (options, value) => ({ [customKey]: true, options, value });
 
 export default msg;

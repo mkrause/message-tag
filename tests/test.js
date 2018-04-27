@@ -1,7 +1,7 @@
 
 import { expect } from 'chai';
 
-import msg from '../src/index.js';
+import msg, { msgTag } from '../src/index.js';
 
 
 describe('Message tag', () => {
@@ -63,12 +63,12 @@ describe('Message tag', () => {
         
         const plainObject2 = { y: 42 }; // Object prototype
         
-        expect(msg`Test: ${plainObject1}`).to.equal('Test: `{"x":42}`');
-        expect(msg`Test: ${plainObject2}`).to.equal('Test: `{"y":42}`');
+        expect(msg`Test: ${plainObject1}`).to.equal('Test: `{"x": 42}`');
+        expect(msg`Test: ${plainObject2}`).to.equal('Test: `{"y": 42}`');
     });
     
     it('should format date as (unquoted) ISO string', () => {
-        expect(msg`Test: ${new Date('2018-04-22T18:35:49.382Z')}`).to.equal('Test: 2018-04-22T18:35:49.382Z');
+        expect(msg`Test: ${new Date('2018-04-22T18:35:49Z')}`).to.equal('Test: 2018-04-22T18:35:49Z');
     });
     
     it('should format regex as quoted string representation', () => {
@@ -95,11 +95,32 @@ describe('Message tag', () => {
         Object.defineProperty(CtorWithName, 'name', { value: 'CustomName' });
         
         expect(msg`Test: ${new ClassSimple()}`).to.equal('Test: [ClassSimple] `{}`');
-        expect(msg`Test: ${new ClassWithProps()}`).to.equal('Test: [ClassWithProps] `{"x":42,"y":null}`');
-        expect(msg`Test: ${new CtorWithName()}`).to.equal('Test: [CustomName] `{"x":42}`');
+        expect(msg`Test: ${new ClassWithProps()}`).to.equal('Test: [ClassWithProps] `{"x": 42, "y": null}`');
+        expect(msg`Test: ${new CtorWithName()}`).to.equal('Test: [CustomName] `{"x": 42}`');
     });
     
     it('should support `msg.raw` for raw interpolation', () => {
         expect(msg`Test: ${msg.raw('foo')}`).to.equal('Test: foo');
+    });
+    
+    it('should support `msgTag` to build a tag with customized default options', () => {
+        const msgCustom = msgTag({ dateFormat: 'yyyy-mm-dd' });
+        expect(
+            msgCustom`Test: ${new Date('2018-04-22T18:35:49.382Z')}`
+        ).to.equal('Test: 2018-04-22');
+    });
+    
+    it('should support `msg.custom` to customize object formatting', () => {
+        const obj = value => msg.custom({ format: { indent: 4 } }, value);
+        expect(
+            msg`Test: ${obj({ x: 42, y: 10 })}`
+        ).to.equal(`Test: \`{\n    "x": 42,\n    "y": 10,\n}\``);
+    });
+    
+    it('should support `msg.custom` option `dateFormat`', () => {
+        const date = value => msg.custom({ dateFormat: 'yyyy-mm-dd' }, value);
+        expect(
+            msg`Test: ${date(new Date('2018-04-22T18:35:49.382Z'))}`
+        ).to.equal('Test: 2018-04-22');
     });
 });

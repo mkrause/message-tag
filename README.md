@@ -88,3 +88,28 @@ If you want to disable formatting for a specific input, use `msg.raw`:
 ```js
 msg`Will not be formatted: ${msg.raw('foo')}`; // 'Will not be formatted: foo'
 ```
+
+
+## Custom formatting
+
+You can customize the formatting using `msg.custom`. For example:
+
+```js
+msg`The date is: ${msg.custom({ dateFormat: 'mmmm dS, yyyy' }, new Date('2018-01-01'))}`;
+// Result: 'The date is: January 1st, 2018'
+```
+
+You can also change the defaults by creating your own customized tag:
+
+```js
+import { msgTag } from 'message-tag';
+
+const msg = msgTag({ dateFormat: 'mmmm dS, yyyy' });
+msg`The date is: ${new Date('2018-01-01')}`;
+// Result: 'The date is: January 1st, 2018'
+```
+
+Supported options:
+
+* `dateFormat`: Custom format for `Date` objects. See the [dateformat](https://www.npmjs.com/package/dateformat) package for a complete overview of the format options.
+* `format`: Formatting for JS objects. Can use any option supported by [pretty-format](https://www.npmjs.com/package/pretty-format).
