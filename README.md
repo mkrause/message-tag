@@ -13,7 +13,7 @@ const time = new Date();
 const user = { name: 'John' };
 
 const message = msg`[${time}] Found user: ${user}`;
-// Result: '[2018-04-22T22:19:39.161Z] Found user: `{"name":"John"}`'
+// Result: '[2018-04-22T22:19:39Z] Found user: `{"name":"John"}`'
 ```
 
 
