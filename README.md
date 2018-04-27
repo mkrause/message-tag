@@ -13,7 +13,7 @@ const time = new Date();
 const user = { name: 'John' };
 
 const message = msg`[${time}] Found user: ${user}`;
-// Result: '[2018-04-22T22:19:39Z] Found user: `{"name":"John"}`'
+// Result: '[2018-04-22T22:19:39Z] Found user: `{"name": "John"}`'
 ```
 
 
@@ -58,7 +58,7 @@ msg`Message: ${undefined}`; // 'Message: `undefined`'
 msg`Message: ${null}`; // 'Message: `null`'
 msg`Message: ${42}`; // 'Message: 42'
 msg`Message: ${[1, 2, 3]}`; // 'Message: `[1,2,3]`'
-msg`Message: ${{ name: 'John' }}`; // 'Message: `{"name":"John"}`'
+msg`Message: ${{ name: 'John' }}`; // 'Message: `{"name": "John"}`'
 
 // Dates are formatted as ISO strings:
 msg`Message: ${new Date()}`; // 'Message: 2018-04-22T22:19:39.161Z'
@@ -79,7 +79,7 @@ class MyType {
     }
 }
 
-msg`Custom: ${new MyType()}`; // 'Custom: `{"value":42}`'
+msg`Custom: ${new MyType()}`; // 'Custom: `{"value": 42}`'
 ```
 
 
