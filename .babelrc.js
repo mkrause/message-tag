@@ -6,7 +6,7 @@ module.exports = {
         ['env', {
             targets: {
                 node: '8.0',
-                browsers: ['last 2 versions'],
+                browsers: ['last 2 versions', 'not dead'],
             },
             
             // Whether to enable modules (depends on the target environment)
