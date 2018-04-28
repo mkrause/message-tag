@@ -79,7 +79,7 @@ class MyType {
     }
 }
 
-msg`Custom: ${new MyType()}`; // 'Custom: `{"value": 42}`'
+msg`Custom type: ${new MyType()}`; // 'Custom type: [MyType] `{"value": 42}`'
 ```
 
 

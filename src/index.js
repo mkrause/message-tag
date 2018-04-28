@@ -81,7 +81,7 @@ const format = (value, options = {}) => {
             if ('toJSON' in value) {
                 // Note: `toJSON` is not included in `Object.prototype`, so will only be present in types
                 // that explicitly implement JSON encoding.
-                stringRep = quote(JSON.stringify(value));
+                stringRep = quote(formatObject(value, options.format));
             } else if ('toString' in value && value.toString !== Object.prototype.toString) {
                 // Note: `toString` is included in `Object.prototype`. However, the default implementation is
                 // generally not very helpful (e.g. `[Object object]`). So we explicitly ignore it.

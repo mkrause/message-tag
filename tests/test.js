@@ -88,6 +88,21 @@ describe('Message tag', () => {
                 this.y = null;
             }
         }
+        class ClassWithToJson {
+            constructor() {
+                this.x = 42;
+                this.y = null;
+            }
+            
+            toJSON() {
+                return { x: this.x };
+            }
+        }
+        class ClassWithToString {
+            toString() {
+                return 'foo';
+            }
+        }
         
         function CtorWithName() {
             this.x = 42;
@@ -96,6 +111,8 @@ describe('Message tag', () => {
         
         expect(msg`Test: ${new ClassSimple()}`).to.equal('Test: [ClassSimple] `{}`');
         expect(msg`Test: ${new ClassWithProps()}`).to.equal('Test: [ClassWithProps] `{"x": 42, "y": null}`');
+        expect(msg`Test: ${new ClassWithToJson()}`).to.equal('Test: [ClassWithToJson] `{"x": 42}`');
+        expect(msg`Test: ${new ClassWithToString()}`).to.equal('Test: [ClassWithToString] "foo"');
         expect(msg`Test: ${new CtorWithName()}`).to.equal('Test: [CustomName] `{"x": 42}`');
     });
     
