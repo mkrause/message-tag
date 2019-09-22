@@ -3,17 +3,20 @@ import dateFormat from 'dateformat';
 import prettyFormat from 'pretty-format';
 
 
+// Generic builder for template literal tags
 const createTag = encode => (stringParts, ...substitutions) =>
     substitutions.reduce(
         (prev, cur, i) => prev + encode(cur) + stringParts[i + 1],
         stringParts[0]
     );
 
-const quote = value => `\`${value}\``;
-
+// Version of `obj.hasOwnProperty()` that works regardless of prototype
 const hasOwnProperty = (obj, propName) => Object.prototype.hasOwnProperty.call(obj, propName);
 
+
 const customKey = Symbol('msg.custom');
+
+const quote = value => `\`${value}\``;
 
 const formatObject = (obj, options) => {
     return prettyFormat(obj, options)

@@ -25,6 +25,7 @@ describe('Message tag', () => {
     it('should format number as number literal', () => {
         expect(msg`Test: ${42}`).to.equal('Test: 42');
         expect(msg`Test: ${-10}`).to.equal('Test: -10');
+        expect(msg`Test: ${-0.123}`).to.equal('Test: -0.123');
         
         expect(msg`Test: ${+0}`).to.equal('Test: 0');
         expect(msg`Test: ${-0}`).to.equal('Test: 0');
