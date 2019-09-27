@@ -1,5 +1,5 @@
 ///<reference lib="es2015"/>
-///<reference path="./message-tag.d.ts"/>
+///<reference path="./index.d.ts"/>
 
 // Test module to test TypeScript declaration file.
 // Usage:
