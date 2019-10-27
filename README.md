@@ -1,8 +1,8 @@
 
 # message-tag
 
-[![npm](https://img.shields.io/npm/v/message-tag.svg)](https://www.npmjs.com/package/message-tag)
-[![Travis](https://img.shields.io/travis/mkrause/message-tag.svg)](https://travis-ci.org/mkrause/message-tag)
+[![npm](https://img.shields.io/npm/v/message-tag.svg?style=flat-square)](https://www.npmjs.com/package/message-tag)
+[![Travis](https://img.shields.io/travis/mkrause/message-tag.svg?style=flat-square)](https://travis-ci.org/mkrause/message-tag)
 
 A [template literal tag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) to format arbitrary values in a string template. Useful for error messages, logs, etc.
 
@@ -113,7 +113,6 @@ Supported options:
 
 * `dateFormat`: Custom format for `Date` objects. See the [dateformat](https://www.npmjs.com/package/dateformat) package for a complete overview of the format options.
 * `format`: Formatting for JS objects. Can use any option supported by [pretty-format](https://www.npmjs.com/package/pretty-format).
-
 
 
 ## Types
