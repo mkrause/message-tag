@@ -1,5 +1,3 @@
-///<reference lib="es2015"/>
-///<reference path="./index.d.ts"/>
 
 // Test module to test TypeScript declaration.
 // Usage: `tsd`.
