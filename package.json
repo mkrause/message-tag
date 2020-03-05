@@ -43,7 +43,7 @@
         "chai": "^4.2.0"
     },
     "dependencies": {
-        "pretty-format": "^24.9.0",
+        "pretty-format": "^25.1.0",
         "dateformat": "^3.0.3"
     }
 }
