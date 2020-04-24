@@ -1,6 +1,9 @@
 
 # Change Log
 
+- v0.5
+  - Remove support for Node v8, add tests for Node v14.
+
 - v0.4
   - Remove core-js polyfills to improve file size.
   - Add `tsd` to test TypeScript declaration.

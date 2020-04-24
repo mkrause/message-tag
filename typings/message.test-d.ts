@@ -3,7 +3,7 @@
 // Usage: `tsd`.
 
 import { expectType, expectError } from 'tsd';
-import msg, { msgTag, raw, custom } from '.';
+import msg, { msgTag, raw, custom } from '..';
 
 
 expectType<string>(msg``);

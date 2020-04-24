@@ -1,7 +1,7 @@
 
 import { expect } from 'chai';
 
-import msg, { msgTag } from '../src/index.js';
+import msg, { msgTag } from '../src/message.js';
 
 
 describe('Message tag', () => {
