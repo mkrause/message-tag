@@ -21,30 +21,35 @@
         "lib-esm/",
         "typings/message.d.ts"
     ],
-    "types": "./typings/message.d.ts",
     "engines": {
         "node": ">= 10.13"
     },
     "main": "./lib-cjs/message.cjs",
     "module": "./lib-esm/message.mjs",
+    "types": "./typings/message.d.ts",
+    "sideEffects": false,
     "scripts": {
-        "build:cjs": "rm -rf ./lib-cjs && NODE_ENV=production BABEL_ENV=cjs babel src --out-dir lib-cjs --out-file-extension=.cjs --source-maps inline",
-        "build:esm": "rm -rf ./lib-esm && NODE_ENV=production BABEL_ENV=esm babel src --out-dir lib-esm --out-file-extension=.mjs --source-maps inline",
+        "_build": "babel src --source-maps=true",
+        "build:cjs": "NODE_ENV=production BABEL_ENV=cjs npm run _build -- --out-dir lib-cjs --out-file-extension=.cjs --delete-dir-on-start",
+        "build:esm": "NODE_ENV=production BABEL_ENV=esm npm run _build -- --out-dir lib-esm --out-file-extension=.mjs --delete-dir-on-start",
         "test": "NODE_ENV=test BABEL_ENV=cjs mocha --require @babel/register --recursive tests && tsd && echo '[tsd] success'",
-        "prepublishOnly": "npm run build:esm && npm run build:cjs"
+        "prepack": "npm run build:esm && npm run build:cjs"
     },
     "devDependencies": {
-        "@babel/core": "^7.9.0",
-        "@babel/register": "^7.9.0",
-        "@babel/cli": "^7.7.4",
-        "@babel/preset-env": "^7.9.5",
-        "typescript": "^3.8.3",
+        "@babel/core": "^7.10.2",
+        "@babel/register": "^7.10.1",
+        "@babel/cli": "^7.10.1",
+        "@babel/preset-env": "^7.10.2",
+        "typescript": "^3.9.5",
         "tsd": "^0.11.0",
-        "mocha": "^7.1.1",
+        "mocha": "^7.2.0",
         "chai": "^4.2.0"
     },
+    "//dependencies": {
+        "pretty-format": "Pinned to v25. Newer versions break `tsd` (due to using TypeScript v3.9 syntax)"
+    },
     "dependencies": {
-        "pretty-format": "^25.4.0",
+        "pretty-format": "25.4.*",
         "dateformat": "^3.0.3"
     }
 }
