@@ -1,8 +1,11 @@
 
 # Change Log
 
+- v0.6
+  - Drop support for Node v10, and IE 11
+
 - v0.5
-  - Remove support for Node v8, add tests for Node v14.
+  - Drop support for Node v8, add tests for Node v14.
 
 - v0.4
   - Remove core-js polyfills to improve file size.
