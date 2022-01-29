@@ -1,6 +1,6 @@
 
 import dateFormat from 'dateformat';
-import prettyFormat from 'pretty-format';
+import { format as prettyFormat } from 'pretty-format';
 
 
 // Generic builder for template literal tags
