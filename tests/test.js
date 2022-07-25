@@ -68,6 +68,10 @@ describe('Message tag', () => {
         expect(msg`Test: ${plainObject2}`).to.equal('Test: `{"y": 42}`');
     });
     
+    it('should format invalid date as [invalid Date]', () => {
+        expect(msg`Test: ${new Date('invalid date')}`).to.equal('Test: [invalid Date]');
+    });
+    
     it('should format date as (unquoted) ISO string', () => {
         expect(msg`Test: ${new Date('2018-04-22T18:35:49Z')}`).to.equal('Test: 2018-04-22T18:35:49Z');
     });

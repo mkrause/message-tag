@@ -61,7 +61,12 @@ const format = (value, options = {}) => {
     } else if (typeof value === 'function') {
         return quote(value.toString());
     } else if (value instanceof Date) {
-        return dateFormat(value, options.dateFormat || 'isoUtcDateTime');
+        if (Number.isNaN(value.valueOf())) {
+            return '[invalid Date]';
+        } else {
+            // Note: `dateFormat` throws a TypeError if the given Date is invalid (i.e. value is NaN)
+            return dateFormat(value, options.dateFormat || 'isoUtcDateTime');
+        }
     } else if (value instanceof RegExp) {
         return quote(value.toString());
     } else if (value instanceof Error) {

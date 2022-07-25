@@ -1,6 +1,9 @@
 
 # Change Log
 
+- v0.8
+  - Invalid `Date` instances are now formatted as `[invalid Date]`, rather than throwing a TypeError as before.
+
 - v0.7
   - Update import for `pretty-format`.
 
