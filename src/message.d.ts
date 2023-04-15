@@ -1,5 +1,5 @@
 
-import { Config as PrettyFormatConfig } from 'pretty-format';
+import { type Config as PrettyFormatConfig } from 'pretty-format';
 
 
 type MessageTag = (stringParts: TemplateStringsArray, ...substitutions: unknown[]) => string;

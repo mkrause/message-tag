@@ -19,17 +19,27 @@
         "src/",
         "dist/"
     ],
-    "//": "https://github.com/felixge/node-dateformat/issues/176",
     "engines": {
         "node": ">= 14.15"
     },
+    "//": "Note that type=module also affects how TypeScript loads in declaration files:",
+    "//": "https://www.typescriptlang.org/docs/handbook/esm-node.html",
     "type": "module",
+    "//": "Legacy `main`/`types` are necessary to support TypeScript with moduleResolution = 'node10' (not 'node16')",
+    "//": "See https://arethetypeswrong.github.io/?p=message-tag",
+    "main": "./dist/node-cjs/message.cjs",
+    "types": "./dist/types/message.d.ts",
     "exports": {
         "./package.json": "./package.json",
         ".": {
-            "types": "./dist/types/message.d.ts",
-            "import": "./dist/node-esm/message.mjs",
-            "require": "./dist/node-cjs/message.cjs",
+            "import": {
+                "types": "./dist/types/message.d.mts",
+                "default": "./dist/node-esm/message.mjs"
+            },
+            "require": {
+                "types": "./dist/types/message.d.cts",
+                "default": "./dist/node-cjs/message.cjs"
+            },
             "default": "./dist/node-esm/message.mjs"
         }
     },
@@ -38,7 +48,7 @@
         "_build": "NODE_ENV=production babel src --source-maps=true --delete-dir-on-start",
         "build:cjs": "BABEL_ENV=cjs npm run _build -- --out-dir=dist/node-cjs --out-file-extension=.cjs",
         "build:esm": "BABEL_ENV=esm npm run _build -- --out-dir=dist/node-esm --out-file-extension=.mjs",
-        "build:types": "mkdir -p ./dist/types && cp src/message.d.ts ./dist/types",
+        "build:types": "mkdir -p ./dist/types && cp src/message.d.ts ./dist/types/message.d.mts && cp src/message.d.ts ./dist/types/message.d.cts",
         "build": "npm run build:esm && npm run build:cjs && npm run build:types",
         "test:unit": "NODE_ENV=test BABEL_ENV=cjs mocha --require @babel/register --recursive tests",
         "test:imports": "node tests/import-cjs.cjs && node tests/import-esm.mjs",
@@ -56,6 +66,8 @@
         "mocha": "^10.2.0",
         "chai": "^4.3.7"
     },
+    "//": "Note: do not upgrade to `dateformat` 5.x because it doesn't properly support CommonJS environments",
+    "//": "https://github.com/felixge/node-dateformat/issues/176",
     "dependencies": {
         "pretty-format": "^29.5.0",
         "dateformat": "^4.6.2"
