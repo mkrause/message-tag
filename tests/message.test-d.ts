@@ -3,7 +3,7 @@
 // Usage: `tsd`.
 
 import { expectType, expectError } from 'tsd';
-import msg, { msgTag, raw, custom } from '..';
+import msg, { msgTag, raw, custom } from '../src/message.js';
 
 
 expectType<string>(msg``);
@@ -16,7 +16,7 @@ expectType<string>(msg`foo ${42}`);
 
 expectType<string>(msg`foo ${{ x: 42 }}`);
 
-expectType<string>(msg`foo ${(x : number) => x + 1}`);
+expectType<string>(msg`foo ${(x: number) => x + 1}`);
 
 expectType<string>(msg`foo ${msg.raw('bar')}`);
 

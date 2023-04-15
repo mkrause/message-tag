@@ -1,7 +1,11 @@
 {
     "compilerOptions": {
         "noEmit": true,
-        "lib": ["es2019"],
+        //"traceResolution": true,
+        "lib": ["es2021"],
         "strict": true,
+        "exactOptionalPropertyTypes": true,
+        "allowImportingTsExtensions": true,
+        "moduleResolution": "node16",
     },
 }

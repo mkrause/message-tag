@@ -17,23 +17,30 @@
     ],
     "files": [
         "src/",
-        "lib-cjs/",
-        "lib-esm/",
-        "typings/message.d.ts"
+        "dist/"
     ],
+    "//": "Note: Node v14.15 'Fermium' is the first v14.x LTS release",
     "engines": {
-        "node": ">= 12.13"
+        "node": ">= 14.15"
     },
-    "main": "./lib-cjs/message.cjs",
-    "module": "./lib-esm/message.mjs",
-    "types": "./typings/message.d.ts",
+    "type": "module",
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "types": "./dist/types/message.d.ts",
+            "import": "./dist/node-esm/message.mjs",
+            "require": "./dist/node-cjs/message.cjs",
+            "default": "./dist/node-esm/message.mjs"
+        }
+    },
     "sideEffects": false,
     "scripts": {
-        "_build": "babel src --source-maps=true",
-        "build:cjs": "NODE_ENV=production BABEL_ENV=cjs npm run _build -- --out-dir lib-cjs --out-file-extension=.cjs --delete-dir-on-start",
-        "build:esm": "NODE_ENV=production BABEL_ENV=esm npm run _build -- --out-dir lib-esm --out-file-extension=.mjs --delete-dir-on-start",
-        "test": "NODE_ENV=test BABEL_ENV=cjs mocha --require @babel/register --recursive tests && tsd && echo '[tsd] success'",
-        "prepublishOnly": "npm run build:esm && npm run build:cjs"
+        "_build": "NODE_ENV=production babel src --source-maps=true --delete-dir-on-start",
+        "build:cjs": "BABEL_ENV=cjs npm run _build -- --out-dir=dist/node-cjs --out-file-extension=.cjs",
+        "build:esm": "BABEL_ENV=esm npm run _build -- --out-dir=dist/node-esm --out-file-extension=.mjs",
+        "build:types": "mkdir -p ./dist/types && cp src/message.d.ts ./dist/types",
+        "test": "NODE_ENV=test BABEL_ENV=cjs mocha --require @babel/register --recursive tests && npm run build:types && tsd --typings=src/message.d.ts --files=tests/message.test-d.ts && echo '[tsd] success'",
+        "prepublishOnly": "npm run build:esm && npm run build:cjs && npm run build:types"
     },
     "devDependencies": {
         "@babel/core": "^7.21.4",
@@ -47,6 +54,6 @@
     },
     "dependencies": {
         "pretty-format": "^29.5.0",
-        "dateformat": "^4.6.3"
+        "dateformat": "^5.0.3"
     }
 }
