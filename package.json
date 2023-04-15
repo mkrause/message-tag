@@ -56,7 +56,7 @@
         "test:imports": "node tests/import-cjs.cjs && node tests/import-esm.mjs",
         "test:types": "tsc && npm run build:types && tsd --typings=src/message.d.ts --files=tests/message.test-d.ts && echo '[tsd] success'",
         "test": "npm run test:unit && npm run test:imports && npm run test:types",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "npm run build && npm test"
     },
     "devDependencies": {
         "@babel/core": "^7.21.4",
