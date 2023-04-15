@@ -22,6 +22,12 @@
     "engines": {
         "node": ">= 14.15"
     },
+    "typeComments": [
+        "// Note that type=module also affects how TypeScript loads in declaration files:",
+        "// https://www.typescriptlang.org/docs/handbook/esm-node.html",
+        "// Legacy `main`/`types` are necessary to support TypeScript with moduleResolution = 'node10' (not 'node16')",
+        "// See https://arethetypeswrong.github.io/?p=message-tag"
+    ],
     "type": "module",
     "main": "./dist/node-cjs/message.cjs",
     "types": "./dist/types/message.d.cts",
