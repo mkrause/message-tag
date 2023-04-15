@@ -39,7 +39,10 @@
         "build:cjs": "BABEL_ENV=cjs npm run _build -- --out-dir=dist/node-cjs --out-file-extension=.cjs",
         "build:esm": "BABEL_ENV=esm npm run _build -- --out-dir=dist/node-esm --out-file-extension=.mjs",
         "build:types": "mkdir -p ./dist/types && cp src/message.d.ts ./dist/types",
-        "test": "NODE_ENV=test BABEL_ENV=cjs mocha --require @babel/register --recursive tests && npm run build:types && tsd --typings=src/message.d.ts --files=tests/message.test-d.ts && echo '[tsd] success'",
+        "test:unit": "NODE_ENV=test BABEL_ENV=cjs mocha --require @babel/register --recursive tests",
+        "test:imports": "node tests/import-cjs.cjs && node tests/import-esm.mjs",
+        "test:types": "tsc && npm run build:types && tsd --typings=src/message.d.ts --files=tests/message.test-d.ts && echo '[tsd] success'",
+        "test": "npm run test:unit && npm run test:imports && npm run test:types",
         "prepublishOnly": "npm run build:esm && npm run build:cjs && npm run build:types"
     },
     "devDependencies": {
