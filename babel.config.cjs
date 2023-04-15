@@ -5,7 +5,6 @@ module.exports = {
     targets: {
         browsers: [
             'defaults',
-            'not IE 11',
             'node 14.15', // Support Node v14.15 (Fermium) LTS or higher
         ],
     },
