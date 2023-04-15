@@ -2,7 +2,7 @@
 # message-tag
 
 [![npm](https://img.shields.io/npm/v/message-tag.svg?style=flat-square)](https://www.npmjs.com/package/message-tag)
-![GitHub Actions](https://github.com/mkrause/message-tag/actions/workflows/main.yml/badge.svg)
+![GitHub Actions](https://github.com/mkrause/message-tag/actions/workflows/nodejs.yml/badge.svg)
 
 A [template literal tag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) to format arbitrary values in a string template. Useful for error messages, logs, etc.
 
