@@ -25,7 +25,7 @@
     "//": "https://github.com/felixge/node-dateformat/issues/176",
     "type": "module",
     "main": "./dist/node-cjs/message.cjs",
-    "types": "./dist/types/message.d.ts",
+    "types": "./dist/types/message.d.cts",
     "exports": {
         "./package.json": "./package.json",
         ".": {
