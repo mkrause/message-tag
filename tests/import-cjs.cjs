@@ -18,7 +18,6 @@ assert(typeof msg.custom === 'function');
 
 
 // Test: importing an ESM package from a CJS context
-// Test: importing a ESM package from a CJS context
 import('message-tag')
   .then((msg) => {
     assert(typeof msg.default === 'function');
