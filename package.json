@@ -1,6 +1,6 @@
 {
     "name": "message-tag",
-    "version": "0.9.4",
+    "version": "0.10.0",
     "author": "mkrause",
     "license": "MIT",
     "repository": "https://github.com/mkrause/message-tag",
@@ -22,7 +22,6 @@
     "engines": {
         "node": ">= 14.15"
     },
-    "//": "https://github.com/felixge/node-dateformat/issues/176",
     "type": "module",
     "main": "./dist/node-cjs/message.cjs",
     "types": "./dist/types/message.d.cts",
@@ -66,5 +65,11 @@
     "dependencies": {
         "pretty-format": "^29.5.0",
         "dateformat": "^4.6.2"
+    },
+    "dependenciesComments": {
+        "dateformat": [
+            "Note: do not upgrade to `dateformat` 5.x because it doesn't properly support CommonJS environments",
+            "https://github.com/felixge/node-dateformat/issues/176"
+        ]
     }
 }

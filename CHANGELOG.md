@@ -1,6 +1,9 @@
 
 # Change Log
 
+- v0.10
+  - Upgrade to package-lock v2 format.
+
 - v0.9
   - Upgrade message-tag to use modern Node.js 14+ features.
   - Drop support for Node 12.
