@@ -1,6 +1,6 @@
 {
     "name": "message-tag",
-    "version": "0.9.2",
+    "version": "0.9.3",
     "author": "mkrause",
     "license": "MIT",
     "repository": "https://github.com/mkrause/message-tag",
@@ -22,11 +22,8 @@
     "engines": {
         "node": ">= 14.15"
     },
-    "//": "Note that type=module also affects how TypeScript loads in declaration files:",
-    "//": "https://www.typescriptlang.org/docs/handbook/esm-node.html",
+    "//": "https://github.com/felixge/node-dateformat/issues/176",
     "type": "module",
-    "//": "Legacy `main`/`types` are necessary to support TypeScript with moduleResolution = 'node10' (not 'node16')",
-    "//": "See https://arethetypeswrong.github.io/?p=message-tag",
     "main": "./dist/node-cjs/message.cjs",
     "types": "./dist/types/message.d.ts",
     "exports": {
@@ -66,8 +63,6 @@
         "mocha": "^10.2.0",
         "chai": "^4.3.7"
     },
-    "//": "Note: do not upgrade to `dateformat` 5.x because it doesn't properly support CommonJS environments",
-    "//": "https://github.com/felixge/node-dateformat/issues/176",
     "dependencies": {
         "pretty-format": "^29.5.0",
         "dateformat": "^4.6.2"
