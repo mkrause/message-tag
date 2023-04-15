@@ -1,6 +1,13 @@
 
 # Change Log
 
+- v0.9
+  - Upgrade message-tag to use modern Node.js 14+ features.
+  - Drop support for Node 12.
+  - Use `exports` in package.json rather than `main`.
+  - Upgrade all dependencies to latest versions.
+  - Move dist files to new `dist` directory containing ESM, CommonJS, and TypeScript build files.
+
 - v0.8
   - Invalid `Date` instances are now formatted as `[invalid Date]`, rather than throwing a TypeError as before.
 
